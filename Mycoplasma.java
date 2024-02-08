@@ -28,11 +28,18 @@ public class Mycoplasma extends Cell {
     */
     public void act() {
         List<Cell> neighbours = getField().getLivingNeighbours(getLocation());
-        setNextState(false);
+        //setNextState(false);
     
         if (isAlive()) {
-            if (neighbours.size() > 1)
+            if (neighbours.size() < 2 || neighbours.size() > 3){
+                setNextState(false);
+            } else 
                 setNextState(true);
+        } else {
+            if (neighbours.size() == 3){
+                setNextState(true);
+            }
         }
+        /* base task 1*/
     }
 }
