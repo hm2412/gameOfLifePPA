@@ -2,6 +2,7 @@ import javafx.scene.paint.Color;
 import java.util.List;
 
 /**
+ * Base Task 2
  * ChromaCell represents a life form that changes color based on its surroundings.
  * It brightens when stable, darkens when underpopulated or overcrowded,
  * and starts with a specific color when coming to life.
@@ -28,7 +29,7 @@ public class ChromaCell extends Cell {
      */
     public void act() {
         List<Cell> neighbours = getField().getLivingNeighbours(getLocation());
-        
+
         if (isAlive()) {
             if (neighbours.size() < 2 || neighbours.size() > 3) {
                 setNextState(false);

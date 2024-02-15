@@ -16,7 +16,8 @@ import java.util.Random;
 public class Simulator {
 
     private static final double MYCOPLASMA_ALIVE_PROB = 0.25;
-    private static final double CHROMACELL_ALIVE_PROB = 0.25;
+    private static final double CHROMACELL_ALIVE_PROB = 0.5;
+    private static final double DISEASEDCELLS_ALIVE_PROB = 0.35;
     private List<Cell> cells;
     private Field field;
     private int generation;
@@ -62,14 +63,14 @@ public class Simulator {
     public void reset() {
         generation = 0;
         cells.clear();
-        populateChromaCell();
+        populateDiseasedCells();
     }
 
     /**
      * Randomly populate the field live/dead life forms for Mycoplasma
      */
     private void populateMycoplasma() {
-      Random rand = Randomizer.getRandom();
+          Random rand = Randomizer.getRandom();
       field.clear();
       for (int row = 0; row < field.getDepth(); row++) {
         for (int col = 0; col < field.getWidth(); col++) {
@@ -102,6 +103,27 @@ public class Simulator {
           else {
             chroma.setDead();
             cells.add(chroma);
+          }
+        }
+      }
+    }
+    
+    /**
+     * Randomly populate the field live/dead life forms for DiseasedCells
+     */
+    private void populateDiseasedCells() {
+      Random rand = Randomizer.getRandom();
+      field.clear();
+      for (int row = 0; row < field.getDepth(); row++) {
+        for (int col = 0; col < field.getWidth(); col++) {
+          Location location = new Location(row, col);
+          DiseasedCells disease = new DiseasedCells(field, location);
+          if (rand.nextDouble() <= DISEASEDCELLS_ALIVE_PROB) {
+            cells.add(disease);
+          }
+          else {
+            disease.setDead();
+            cells.add(disease);
           }
         }
       }
