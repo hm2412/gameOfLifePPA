@@ -11,6 +11,7 @@ public abstract class Cell {
 
     private boolean alive;    
     private boolean nextAlive; // The state of the cell in the next iteration
+    private int livingGenerations; // how long the cell has been alive
     private Field field;
     private Location location;
     private Color color = Color.WHITE;
@@ -22,6 +23,7 @@ public abstract class Cell {
      * @param location The location within the field.
      */
     public Cell(Field field, Location location, Color col) {
+        livingGenerations = 0;
         alive = true;
         nextAlive = false;
         this.field = field;
@@ -34,7 +36,7 @@ public abstract class Cell {
      * next generation.
      */
     abstract public void act();
-
+    
     /**
      * Check whether the cell is alive or not.
      * @return true if the cell is still alive.
@@ -48,6 +50,18 @@ public abstract class Cell {
      */
     protected void setDead() {
         alive = false;
+    }
+    
+    protected void updateGeneration(boolean state){
+        if (state){
+            livingGenerations++;
+        } else {
+            livingGenerations = 0;
+        }
+    }
+    
+    public int getLivingGenerations(){
+        return livingGenerations;
     }
 
     /**

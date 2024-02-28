@@ -2,13 +2,15 @@ import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Random;
+import java.util.ArrayList;
 
 /**
  * Represent a rectangular grid of field positions.
  * Each position stores a single cell
  *
  * @author David J. Barnes, Michael Kölling & Jeffery Raphael
- * @version 2022.01.06
+ * @author Haleema Mohammed
+ * @version 2024.02.28
  */
 
 public class Field {
@@ -96,6 +98,7 @@ public class Field {
      */
     public Location randomAdjacentLocation(Location location) {
         List<Location> adjacent = adjacentLocations(location);
+        Collections.shuffle(adjacent);
         return adjacent.get(0);
     }
 
@@ -154,6 +157,21 @@ public class Field {
         Collections.shuffle(neighbours, rand);
       }
       return neighbours;
+    }
+    
+    
+    /**
+     * Returns true if there is no cell @location, or if the cell is 'dead'
+     * thus effectively empty.
+     */
+    
+    public boolean isEmpty(Location location){
+        Cell cell = getObjectAt(location);
+        
+        if ((cell == null) || (cell.isAlive() == false) ){
+            return true;
+        }
+        return false;
     }
 
     /**

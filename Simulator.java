@@ -8,15 +8,21 @@ import java.util.Random;
 /**
  * A Life (Game of Life) simulator, first described by British mathematician
  * John Horton Conway in 1970.
+ * 
+ * This updated simulator contains [...] life forms.
+ * Mycoplasma, Evolver, Predator and Prey
  *
  * @author David J. Barnes, Michael Kölling & Jeffery Raphael
- * @version 2024.02.03
+ * @author Haleema Mohammed
+ * @version 2024.02.28
  */
 
 public class Simulator {
 
     private static final double MYCOPLASMA_ALIVE_PROB = 0.25;
-    private static final double CHROMACELL_ALIVE_PROB = 0.25;
+    private static final double PREDATOR_ALIVE_PROB = 0.015;
+    private static final double PREY_ALIVE_PROB = 0.02;
+    private static final double EVOLVER_ALIVE_PROB = 0.025;
     private List<Cell> cells;
     private Field field;
     private int generation;
@@ -34,8 +40,8 @@ public class Simulator {
      * @param width Width of the field. Must be greater than zero.
      */
     public Simulator(int depth, int width) {
-        cells = new ArrayList<>();
         field = new Field(depth, width);
+        cells = new ArrayList<>();
         reset();
     }
 
@@ -62,49 +68,93 @@ public class Simulator {
     public void reset() {
         generation = 0;
         cells.clear();
-        populateChromaCell();
+        populate();
     }
 
     /**
-     * Randomly populate the field live/dead life forms for Mycoplasma
+     * Clear the field and randomly populate it with live/dead life forms.
      */
-    private void populateMycoplasma() {
-      Random rand = Randomizer.getRandom();
+    
+    private void populate() {
       field.clear();
-      for (int row = 0; row < field.getDepth(); row++) {
-        for (int col = 0; col < field.getWidth(); col++) {
-          Location location = new Location(row, col);
-          Mycoplasma myco = new Mycoplasma(field, location, Color.ORANGE);
-          if (rand.nextDouble() <= MYCOPLASMA_ALIVE_PROB) {
-            cells.add(myco);
-          }
-          else {
-            myco.setDead();
-            cells.add(myco);
-          }
-        }
-      }
+      //mycoplasma();
+      //predator();
+      //prey(); // predator and prey should be called together
+      //evolver();
     }
     
-        /**
-     * Randomly populate the field live/dead life forms for ChromaCell
+    /**
+     * Randomly populate the field with live/dead Mycoplasma.
      */
-    private void populateChromaCell() {
-      Random rand = Randomizer.getRandom();
-      field.clear();
-      for (int row = 0; row < field.getDepth(); row++) {
-        for (int col = 0; col < field.getWidth(); col++) {
-          Location location = new Location(row, col);
-          ChromaCell chroma = new ChromaCell(field, location);
-          if (rand.nextDouble() <= CHROMACELL_ALIVE_PROB) {
-            cells.add(chroma);
-          }
-          else {
-            chroma.setDead();
-            cells.add(chroma);
-          }
+    private void mycoplasma(){
+        Random rand = Randomizer.getRandom();
+        for (int row = 0; row < field.getDepth(); row++) {
+            for (int col = 0; col < field.getWidth(); col++) {
+                Location location = new Location(row, col);
+                Mycoplasma myco = new Mycoplasma(field, location, Color.ORANGE);
+                if (rand.nextDouble() <= MYCOPLASMA_ALIVE_PROB) {
+                    cells.add(myco);
+                }
+                else {
+                    myco.setDead();
+                    cells.add(myco);
+                }
+            }
         }
-      }
+    }
+    
+    /**
+     * Randomly populate the field with Predators.
+     * This is used in tangent with prey().
+     */
+    private void predator(){
+        Random rand = Randomizer.getRandom();
+        for (int row = 0; row < field.getDepth(); row++) {
+            for (int col = 0; col < field.getWidth(); col++) {
+                Location location = new Location(row, col);
+                if (rand.nextDouble() <= PREDATOR_ALIVE_PROB){
+                    Predator predator = new Predator(field, location, Color.RED);
+                    cells.add(predator);
+                } 
+            }
+        }
+    }
+    
+    /**
+     * Randomly populate the field with Prey.
+     * This is used in tangent with predator().
+     */
+    private void prey(){
+        Random rand = Randomizer.getRandom();
+        for (int row = 0; row < field.getDepth(); row++) {
+            for (int col = 0; col < field.getWidth(); col++) {
+                Location location = new Location(row, col);
+                if (rand.nextDouble() <= PREY_ALIVE_PROB){
+                    Prey prey = new Prey(field, location, Color.GREEN);
+                    cells.add(prey);
+                } 
+            }
+        }
+    }
+    
+    /**
+     * Randomly populate the field with live/dead Evolvers.
+     */
+    public void evolver(){
+        Random rand = Randomizer.getRandom();
+        for (int row = 0; row < field.getDepth(); row++) {
+            for (int col = 0; col < field.getWidth(); col++) {
+              Location location = new Location(row, col);
+              Evolver evolver = new Evolver(field, location, Color.BLUE);
+              if (rand.nextDouble() <= EVOLVER_ALIVE_PROB) {
+                cells.add(evolver);
+              }
+              else {
+                evolver.setDead();
+                cells.add(evolver);
+              }
+            }
+        }
     }
 
     /**

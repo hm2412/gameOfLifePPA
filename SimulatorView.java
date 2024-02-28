@@ -14,13 +14,14 @@ import javafx.stage.Stage;
  * setColor method.
  *
  * @author David J. Barnes, Michael Kölling & Jeffery Raphael
- * @version 2024.02.03
+ * @author Haleema Mohammed
+ * @version 2024.02.28
  */
 
 public class SimulatorView extends Application {
 
-    public static final int GRID_WIDTH = 10; //100
-    public static final int GRID_HEIGHT = 10; //80   
+    public static final int GRID_WIDTH = 100;
+    public static final int GRID_HEIGHT = 80;  
     public static final int WIN_WIDTH = 650;
     public static final int WIN_HEIGHT = 650;  
     
@@ -130,7 +131,7 @@ public class SimulatorView extends Application {
            
             for (int gen = 1; gen <= numGenerations; gen++) {
                 simulator.simOneGeneration();    
-                simulator.delay(500);
+                simulator.delay(250);
                 Platform.runLater(() -> {
                     updateCanvas(simulator.getGeneration(), simulator.getField());
                 });
