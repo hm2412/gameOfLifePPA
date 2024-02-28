@@ -155,7 +155,23 @@ public class Field {
       }
       return neighbours;
     }
-
+    
+    /**
+     * Returns true if there is no cell @location, or if the cell is 'dead'
+     * thus effectively empty.
+     * 
+     * @author Haleema Mohammed
+     */
+    public boolean isEmpty(Location location) {
+        Cell cell = getObjectAt(location);
+        
+        if ((cell == null) || (cell.isAlive() == false)) {
+            return true;
+        }
+        
+        return false;
+    }
+    
     /**
      * Return the depth of the field.
      * @return The depth of the field.

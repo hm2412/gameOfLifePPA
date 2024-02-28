@@ -3,9 +3,8 @@ import java.util.List;
 
 /**
  * Base Task 2
- * ChromaCell represents a life form that changes color based on its surroundings.
- * It brightens when stable, darkens when underpopulated or overcrowded,
- * and starts with a specific color when coming to life.
+ * ChromaCell represents a life form that changes its color's shade based on how long it has survived.
+ * Each generation it lives it gets darker and starts with a specific color when coming to life.
  *
  * @author Ahmet Taramis (K22038914)
  */
@@ -25,7 +24,7 @@ public class ChromaCell extends Cell {
     }
 
     /**
-     * This method determines the next state and color of the ChromaCell based on its neighbors.
+     * This method determines the next state of the ChromaCell based on its neighbors.
      */
     public void act() {
         List<Cell> neighbours = getField().getLivingNeighbours(getLocation());
