@@ -39,36 +39,39 @@ public class DiseasedCells extends Cell {
             infected = true;
         }
         
-        if (isAlive() && !(infected)) {
-            if (neighbours.size() < 2 || neighbours.size() > 3) {
+        if (!infected) {
+            if (isAlive()) {
+                if (neighbours.size() < 2 || neighbours.size() > 4) {
                 setNextState(false);
-                infected = false;
+                }
+                else {
+                setNextState(true);
+                }
             }
             else {
+                if (neighbours.size() == 3) {
                 setNextState(true);
+                }
             }
             // Chance of randomly being infected
-            if (rand.nextDouble() <= 0.1) {
+            if (rand.nextDouble() <= 0.01) {
+                setNextState(true);
                 infected = true;
                 setColor(INFECTED_COLOR);
             }
         }
-        else if (!isAlive()) {
-            if (neighbours.size() == 3) {
-                setColor(HEALTHY_COLOR);
-                setNextState(true);
-            }
-        }
-        // Once infected cell's behaviour changes (element two for the disease)
-        else if (infected) {
+        else {
             // Chance of dying if infected
-            if (rand.nextDouble() < 0.5) {
+            if (rand.nextDouble() < 0.1) {
                 setNextState(false);
                 infected = false;
+                setColor(HEALTHY_COLOR);
             }
             // Chance of curing disease
-            else if (rand.nextDouble() < 0.1) {
+            else if (rand.nextDouble() < 0.05) {
+                setNextState(true);
                 infected = false;
+                setColor(HEALTHY_COLOR);
             }
             // Chance of spreading disease to each neigbouring cells (element one for the disease)
             for (Location loc : adjacentLocations) {
