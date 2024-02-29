@@ -19,8 +19,8 @@ import javafx.stage.Stage;
 
 public class SimulatorView extends Application {
 
-    public static final int GRID_WIDTH = 20; //100
-    public static final int GRID_HEIGHT = 20; //80   
+    public static final int GRID_WIDTH = 100; //100
+    public static final int GRID_HEIGHT = 80; //80   
     public static final int WIN_WIDTH = 650;
     public static final int WIN_HEIGHT = 650;  
     

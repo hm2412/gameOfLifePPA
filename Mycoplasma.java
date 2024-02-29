@@ -25,8 +25,8 @@ public class Mycoplasma extends Cell {
     }
 
     /**
-    * This is how the Mycoplasma decides if it's alive or not
     * Base Task #1
+    * This is how the Mycoplasma decides if it's alive or not
     * If the cell has fewer than 2 living neighbours it will die (underpopulation).
     * If the cell has two or three live neighbours it will live on.
     * If the cell has more than three live neighbours it will die (overpopulation).

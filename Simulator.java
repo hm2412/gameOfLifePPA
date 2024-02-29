@@ -20,7 +20,7 @@ public class Simulator {
     private static final double MYCOPLASMA_ALIVE_PROB = 0.25;
     private static final double CHROMACELL_ALIVE_PROB = 0.5;
     private static final double EVOLVER_ALIVE_PROB = 0.025;
-    private static final double DISEASEDCELLS_ALIVE_PROB = 0.35;
+    private static final double DISEASEDCELLS_ALIVE_PROB = 0.4;
     private static final double PREDATOR_ALIVE_PROB = 0.015;
     private static final double PREY_ALIVE_PROB = 0.02;
     private List<Cell> cells;
@@ -76,7 +76,7 @@ public class Simulator {
      */
     private void populate() {
         field.clear();
-        populateMycoplasma();
+        //populateMycoplasma();
         //populateChromaCell();
         //populateEvolver();
         //populateDiseasedCells();

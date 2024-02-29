@@ -168,7 +168,6 @@ public class Field {
         if ((cell == null) || (cell.isAlive() == false)) {
             return true;
         }
-        
         return false;
     }
     
