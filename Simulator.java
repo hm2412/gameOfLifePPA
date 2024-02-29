@@ -12,6 +12,7 @@ import java.util.Random;
  * Mycoplasma, ChromaCell, Evolver, DiseasedCell, Predator and Prey
  *
  * @author David J. Barnes, Michael Kölling & Jeffery Raphael
+ * @author Haleema Mohammed, Ahmet Taramis
  * @version 2024.02.03
  */
 
