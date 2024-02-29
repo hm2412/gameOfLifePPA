@@ -1,26 +1,31 @@
 import javafx.application.Application;
 import javafx.application.Platform;
-import javafx.scene.control.Label;
+import java.util.*;
+import javafx.scene.control.*;
+import javafx.scene.layout.*; 
 import javafx.scene.Group; 
-import javafx.scene.layout.BorderPane; 
-import javafx.scene.layout.HBox; 
-import javafx.scene.paint.Color; 
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import javafx.scene.paint.Color; 
 
 /**
  * A graphical view of the simulation grid. The view displays a rectangle for
  * each location. Colors for each type of life form can be defined using the
  * setColor method.
+ * 
+ * This also includes a sidebar, which contains buttons to populate the simulation with 
+ * different lifeforms. There is also a simulate button, where the user can input their
+ * desired number of generations to simulate.
  *
  * @author David J. Barnes, Michael Kölling & Jeffery Raphael
- * @version 2024.02.03
+ * @author Haleema Mohammed
+ * @version 2024.02.28
  */
 
 public class SimulatorView extends Application {
 
-    public static final int GRID_WIDTH = 10; //100
-    public static final int GRID_HEIGHT = 10; //80   
+    public static final int GRID_WIDTH = 100; //100
+    public static final int GRID_HEIGHT = 80; //80   
     public static final int WIN_WIDTH = 650;
     public static final int WIN_HEIGHT = 650;  
     
@@ -34,15 +39,70 @@ public class SimulatorView extends Application {
     private FieldCanvas fieldCanvas;
     private FieldStats stats;
     private Simulator simulator;
+    private Button simulateButton;
+    
+    /**
+     * Create buttons that will be displayed on the sidebar.
+     * These are used to populate the field, as well as start the simulation.
+     */
+    private void populateButtons(VBox sidebar) {
+        Button mycoplasmaButton = new Button("Mycoplasma");
+        mycoplasmaButton.setOnAction(e -> {
+            simulator.reset();
+            simulator.populateMycoplasma();
+            enableSimulateButton();
+            updateCanvas(simulator.getGeneration(), simulator.getField());
+        });
 
+        Button symbiosisButton = new Button("Predators and Prey");
+        symbiosisButton.setOnAction(e -> {
+            simulator.reset();
+            simulator.populatePredator();
+            simulator.populatePrey();
+            enableSimulateButton();
+            updateCanvas(simulator.getGeneration(), simulator.getField());
+        });
+
+        Button evolverButton = new Button("Evolvers");
+        evolverButton.setOnAction(e -> {
+            simulator.reset();
+            simulator.populateEvolver();
+            enableSimulateButton();
+            updateCanvas(simulator.getGeneration(), simulator.getField());
+        });
+        
+        VBox buttonBox = new VBox(); // VBox to contain the buttons
+        buttonBox.getChildren().addAll(mycoplasmaButton, symbiosisButton, evolverButton);
+        
+        simulateButton = new Button("Simulate");
+        simulateButton.setDisable(true); // Cannot simulate while the field is empty
+    
+        simulateButton.setOnAction(e -> {
+            TextInputDialog dialog = new TextInputDialog();
+            dialog.setTitle("Simulate");
+            dialog.setHeaderText("Enter number of generations:");
+            dialog.setContentText("Generations:");
+            
+            Optional<String> result = dialog.showAndWait();
+            result.ifPresent(input -> {
+                int numGenerations = Integer.parseInt(input);
+                simulate(numGenerations); // User can determine the number of generations
+            });
+        });
+
+        sidebar.getChildren().addAll(buttonBox,simulateButton);
+        sidebar.setSpacing(20); // Separates the simulator button
+    }
+    
+    private void enableSimulateButton() {
+        simulateButton.setDisable(false);
+    }
+    
     /**
      * Create a view of the given width and height.
-     * @param height The simulation's height.
-     * @param width  The simulation's width.
      */
     @Override
     public void start(Stage stage) {
-                
         stats = new FieldStats();
         fieldCanvas = new FieldCanvas(WIN_WIDTH - 50, WIN_HEIGHT - 50);
         fieldCanvas.setScale(GRID_HEIGHT, GRID_WIDTH); 
@@ -53,28 +113,34 @@ public class SimulatorView extends Application {
         genLabel = new Label(GENERATION_PREFIX);
         infoLabel = new Label("  ");
         population = new Label(POPULATION_PREFIX);
+        
+        VBox sidebar = new VBox();
+        populateButtons(sidebar);
 
         BorderPane bPane = new BorderPane(); 
         HBox infoPane = new HBox();
         HBox popPane = new HBox();
-        
 
         infoPane.setSpacing(10);
         infoPane.getChildren().addAll(genLabel, infoLabel);       
         popPane.getChildren().addAll(population); 
         
+        bPane.setRight(sidebar);
         bPane.setTop(infoPane);
         bPane.setCenter(fieldCanvas);
         bPane.setBottom(population);
         
         root.getChildren().add(bPane);
-        Scene scene = new Scene(root, WIN_WIDTH, WIN_HEIGHT); 
+        Scene scene = new Scene(root); 
         
         stage.setScene(scene);          
         stage.setTitle("Life Simulation");
+        stage.setMinWidth(WIN_WIDTH); // Set minimum width of the window
+        stage.setMinHeight(WIN_HEIGHT); // Set minimum height of the window
+        stage.setWidth(WIN_WIDTH + 75); // Adjust width to include sidebar
         updateCanvas(simulator.getGeneration(), simulator.getField());
         
-        stage.show();     
+        stage.show();      
     }
 
     /**
@@ -149,5 +215,5 @@ public class SimulatorView extends Application {
     
     public static void main(String args[]){           
         launch(args);      
-   } 
+    } 
 }
