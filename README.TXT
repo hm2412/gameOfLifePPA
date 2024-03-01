@@ -6,7 +6,7 @@ Ahmet Taramis (K22038914)
 Haleema Mohammed (K23035982)
 
 DESCRIPTION:
-This program contains Mycoplasma, ChromaCell, Evolver, DiseasedCells, Predator & Prey cells.
+This program contains Mycoplasma, ChromaCell, Evolver, DiseasedCells, Ripples, Predator & Prey cells.
 
 USER INSTRUCTIONS:
 To run, create new JavaFX from SimulatorView class, then using the buttons you can simulate a life form.
