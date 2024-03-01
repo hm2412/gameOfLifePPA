@@ -53,6 +53,14 @@ public class SimulatorView extends Application {
             enableSimulateButton();
             updateCanvas(simulator.getGeneration(), simulator.getField());
         });
+        
+        Button chromaCellButton = new Button("Chroma Cell");
+        chromaCellButton.setOnAction(e -> {
+            simulator.reset();
+            simulator.populateChromaCell();
+            enableSimulateButton();
+            updateCanvas(simulator.getGeneration(), simulator.getField());
+        });
 
         Button symbiosisButton = new Button("Predators and Prey");
         symbiosisButton.setOnAction(e -> {
@@ -71,8 +79,16 @@ public class SimulatorView extends Application {
             updateCanvas(simulator.getGeneration(), simulator.getField());
         });
         
+        Button diseasedCellsButton = new Button("Diseased Cells");
+        diseasedCellsButton.setOnAction(e -> {
+            simulator.reset();
+            simulator.populateDiseasedCells();
+            enableSimulateButton();
+            updateCanvas(simulator.getGeneration(), simulator.getField());
+        });
+        
         VBox buttonBox = new VBox(); // VBox to contain the buttons
-        buttonBox.getChildren().addAll(mycoplasmaButton, symbiosisButton, evolverButton);
+        buttonBox.getChildren().addAll(mycoplasmaButton, chromaCellButton, symbiosisButton, evolverButton, diseasedCellsButton);
         
         simulateButton = new Button("Simulate");
         simulateButton.setDisable(true); // Cannot simulate while the field is empty

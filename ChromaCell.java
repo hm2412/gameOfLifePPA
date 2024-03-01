@@ -33,7 +33,7 @@ public class ChromaCell extends Cell {
         List<Cell> neighbours = getField().getLivingNeighbours(getLocation());
 
         if (isAlive()) {
-            if (neighbours.size() < 2 || neighbours.size() > 3) {
+            if (neighbours.size() < 2 || neighbours.size() > 4) {
                 setNextState(false);
             }
             else {

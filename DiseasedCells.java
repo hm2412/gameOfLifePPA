@@ -62,7 +62,7 @@ public class DiseasedCells extends Cell {
         }
         else {
             // Chance of dying if infected
-            if (rand.nextDouble() < 0.1) {
+            if (rand.nextDouble() < 0.2) {
                 setNextState(false);
                 infected = false;
                 setColor(HEALTHY_COLOR);
