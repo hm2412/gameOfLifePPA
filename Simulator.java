@@ -1,22 +1,27 @@
 import javafx.scene.paint.Color; 
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Random;
-
+import java.util.*;
 
 /**
  * A Life (Game of Life) simulator, first described by British mathematician
  * John Horton Conway in 1970.
  *
+ * This updated simulator contains 6 life forms.
+ * Mycoplasma, ChromaCell, Evolver, DiseasedCell, Predator and Prey
+ *
  * @author David J. Barnes, Michael Kölling & Jeffery Raphael
+ * @author Haleema Mohammed, Ahmet Taramis
  * @version 2024.02.03
  */
 
 public class Simulator {
 
     private static final double MYCOPLASMA_ALIVE_PROB = 0.25;
-    private static final double CHROMACELL_ALIVE_PROB = 0.25;
+    private static final double CHROMACELL_ALIVE_PROB = 0.5;
+    private static final double EVOLVER_ALIVE_PROB = 0.025;
+    private static final double DISEASEDCELLS_ALIVE_PROB = 0.4;
+    private static final double PREDATOR_ALIVE_PROB = 0.015;
+    private static final double PREY_ALIVE_PROB = 0.02;
+    private static final double RIPPLE_ALIVE_PROB = 0.035;
     private List<Cell> cells;
     private Field field;
     private int generation;
@@ -53,7 +58,6 @@ public class Simulator {
         for (Cell cell : cells) {
           cell.updateState();
         }
-
     }
 
     /**
@@ -62,51 +66,153 @@ public class Simulator {
     public void reset() {
         generation = 0;
         cells.clear();
-        populateChromaCell();
+        field.clear();
     }
-
+    
     /**
      * Randomly populate the field live/dead life forms for Mycoplasma
      */
-    private void populateMycoplasma() {
-      Random rand = Randomizer.getRandom();
-      field.clear();
-      for (int row = 0; row < field.getDepth(); row++) {
-        for (int col = 0; col < field.getWidth(); col++) {
-          Location location = new Location(row, col);
-          Mycoplasma myco = new Mycoplasma(field, location, Color.ORANGE);
-          if (rand.nextDouble() <= MYCOPLASMA_ALIVE_PROB) {
-            cells.add(myco);
-          }
-          else {
-            myco.setDead();
-            cells.add(myco);
-          }
+    protected void populateMycoplasma() {
+        Random rand = Randomizer.getRandom();
+        for (int row = 0; row < field.getDepth(); row++) {
+            for (int col = 0; col < field.getWidth(); col++) {
+                Location location = new Location(row, col);
+                Mycoplasma myco = new Mycoplasma(field, location, Color.ORANGE);
+                if (rand.nextDouble() <= MYCOPLASMA_ALIVE_PROB) {
+                    cells.add(myco);
+                }
+                else {
+                    myco.setDead();
+                    cells.add(myco);
+                }
+            }
         }
-      }
     }
     
-        /**
+    /**
      * Randomly populate the field live/dead life forms for ChromaCell
+     * 
+     * @author Ahmet Taramis
      */
-    private void populateChromaCell() {
-      Random rand = Randomizer.getRandom();
-      field.clear();
-      for (int row = 0; row < field.getDepth(); row++) {
-        for (int col = 0; col < field.getWidth(); col++) {
-          Location location = new Location(row, col);
-          ChromaCell chroma = new ChromaCell(field, location);
-          if (rand.nextDouble() <= CHROMACELL_ALIVE_PROB) {
-            cells.add(chroma);
-          }
-          else {
-            chroma.setDead();
-            cells.add(chroma);
-          }
+    protected void populateChromaCell() {
+        Random rand = Randomizer.getRandom();
+        for (int row = 0; row < field.getDepth(); row++) {
+            for (int col = 0; col < field.getWidth(); col++) {
+                Location location = new Location(row, col);
+                ChromaCell chroma = new ChromaCell(field, location);
+                if (rand.nextDouble() <= CHROMACELL_ALIVE_PROB) {
+                    cells.add(chroma);
+                }
+                else {
+                    chroma.setDead();
+                    cells.add(chroma);
+                }
+            }
         }
-      }
     }
-
+    
+    /**
+     * Randomly populate the field live/dead life forms for Evolvers
+     * 
+     * @author Haleema Mohammed
+     */
+    protected void populateEvolver() {
+        Random rand = Randomizer.getRandom();
+        for (int row = 0; row < field.getDepth(); row++) {
+            for (int col = 0; col < field.getWidth(); col++) {
+                Location location = new Location(row, col);
+                Evolver evolver = new Evolver(field, location, Color.BLUE);
+                if (rand.nextDouble() <= EVOLVER_ALIVE_PROB) {
+                    cells.add(evolver);
+                }
+                else {
+                    evolver.setDead();
+                    cells.add(evolver);
+                }
+            }
+        }
+    }
+    
+    /**
+     * Randomly populate the field live/dead life forms for DiseasedCells
+     * 
+     * @author Ahmet Taramis
+     */
+    protected void populateDiseasedCells() {
+        Random rand = Randomizer.getRandom();
+        for (int row = 0; row < field.getDepth(); row++) {
+            for (int col = 0; col < field.getWidth(); col++) {
+                Location location = new Location(row, col);
+                DiseasedCells disease = new DiseasedCells(field, location);
+                if (rand.nextDouble() <= DISEASEDCELLS_ALIVE_PROB) {
+                    cells.add(disease);
+                }
+                else {
+                    disease.setDead();
+                    cells.add(disease);
+                }
+            }
+        }
+    }
+    
+    /**
+     * Randomly populate the field live/dead life forms for Predator
+     * Used in tangent with populatePrey()
+     * 
+     * @author Haleema Mohammed
+     */
+    protected void populatePredator() {
+        Random rand = Randomizer.getRandom();
+        for (int row = 0; row < field.getDepth(); row++) {
+            for (int col = 0; col < field.getWidth(); col++) {
+                Location location = new Location(row, col);
+                if (rand.nextDouble() <= PREDATOR_ALIVE_PROB) {
+                    Predator predator = new Predator(field, location, Color.RED);
+                    cells.add(predator);
+                }
+            }
+        }
+    }
+    
+    /**
+     * Randomly populate the field live/dead life forms for Prey
+     * Used in tangent with populatePredator()
+     * 
+     * @author Haleema Mohammed
+     */
+    protected void populatePrey() {
+        Random rand = Randomizer.getRandom();
+        for (int row = 0; row < field.getDepth(); row++) {
+            for (int col = 0; col < field.getWidth(); col++) {
+                Location location = new Location(row, col);
+                if (rand.nextDouble() <= PREY_ALIVE_PROB) {
+                    Prey prey = new Prey(field, location, Color.GREEN);
+                    cells.add(prey);
+                }
+            }
+        }
+    }
+    
+    /**
+     * Randomly populate the field live/dead life forms for Ripple cells
+     */
+    protected void populateRipples() {
+        Random rand = Randomizer.getRandom();
+        for (int row = 0; row < field.getDepth(); row++) {
+            for (int col = 0; col < field.getWidth(); col++) {
+                Location location = new Location(row, col);
+                Ripples ripple = new Ripples(field, location);
+                if (rand.nextDouble() <= RIPPLE_ALIVE_PROB) {
+                    cells.add(ripple);
+                }
+                else {
+                    ripple.setDead();
+                    cells.add(ripple);
+                }
+            }
+        }
+    }
+    
     /**
      * Pause for a given time.
      * @param millisec  The time to pause for, in milliseconds

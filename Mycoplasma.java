@@ -18,14 +18,21 @@ public class Mycoplasma extends Cell {
      *
      * @param field The field currently occupied.
      * @param location The location within the field.
+     * @param col The colour of the cell
      */
     public Mycoplasma(Field field, Location location, Color col) {
         super(field, location, col);
     }
 
     /**
-    * This is how the Mycoplasma decides if it's alive or not
     * Base Task #1
+    * This is how the Mycoplasma decides if it's alive or not
+    * If the cell has fewer than 2 living neighbours it will die (underpopulation).
+    * If the cell has two or three live neighbours it will live on.
+    * If the cell has more than three live neighbours it will die (overpopulation).
+    * If a dead cell has exactly three live neighbours it will come alive (reproduction).
+    * 
+    * @authors Haleema Mohammed, Ahmet Taramis
     */
     public void act() {
         List<Cell> neighbours = getField().getLivingNeighbours(getLocation());

@@ -1,10 +1,12 @@
-------------------------------------------------------------------------
-This is an updated README file to test the connection to Github - Haleema
-------------------------------------------------------------------------
-
 PROJECT TITLE:
-PURPOSE OF PROJECT:
-VERSION or DATE:
-HOW TO START THIS PROJECT:
+The Game of Life (PPA CW3)
+
 AUTHORS:
+Ahmet Taramis (K22038914)
+Haleema Mohammed (K23035982)
+
+DESCRIPTION:
+This program contains Mycoplasma, ChromaCell, Evolver, DiseasedCells, Ripples, Predator & Prey cells.
+
 USER INSTRUCTIONS:
+To run, create new JavaFX from SimulatorView class, then using the buttons you can simulate a life form.
