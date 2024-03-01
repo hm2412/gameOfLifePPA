@@ -3,7 +3,7 @@ The Game of Life (PPA CW3)
 
 AUTHORS:
 Ahmet Taramis (K22038914)
-Haleema Mohammed (KXXXXXXXX)
+Haleema Mohammed (K23035982)
 
 DESCRIPTION:
 This program contains Mycoplasma, ChromaCell, Evolver, DiseasedCells, Predator & Prey cells.
