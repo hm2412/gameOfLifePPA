@@ -21,6 +21,7 @@ public class Simulator {
     private static final double DISEASEDCELLS_ALIVE_PROB = 0.4;
     private static final double PREDATOR_ALIVE_PROB = 0.015;
     private static final double PREY_ALIVE_PROB = 0.02;
+    private static final double RIPPLE_ALIVE_PROB = 0.035;
     private List<Cell> cells;
     private Field field;
     private int generation;
@@ -187,6 +188,26 @@ public class Simulator {
                 if (rand.nextDouble() <= PREY_ALIVE_PROB) {
                     Prey prey = new Prey(field, location, Color.GREEN);
                     cells.add(prey);
+                }
+            }
+        }
+    }
+    
+    /**
+     * Randomly populate the field live/dead life forms for Ripple cells
+     */
+    public void populateRipples() {
+        Random rand = Randomizer.getRandom();
+        for (int row = 0; row < field.getDepth(); row++) {
+            for (int col = 0; col < field.getWidth(); col++) {
+                Location location = new Location(row, col);
+                Ripples ripple = new Ripples(field, location);
+                if (rand.nextDouble() <= RIPPLE_ALIVE_PROB) {
+                    cells.add(ripple);
+                }
+                else {
+                    ripple.setDead();
+                    cells.add(ripple);
                 }
             }
         }

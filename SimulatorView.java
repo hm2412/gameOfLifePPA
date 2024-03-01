@@ -87,8 +87,16 @@ public class SimulatorView extends Application {
             updateCanvas(simulator.getGeneration(), simulator.getField());
         });
         
+        Button rippleCellsButton = new Button("Ripples");
+        rippleCellsButton.setOnAction(e -> {
+            simulator.reset();
+            simulator.populateRipples();
+            enableSimulateButton();
+            updateCanvas(simulator.getGeneration(), simulator.getField());
+        });
+        
         VBox buttonBox = new VBox(); // VBox to contain the buttons
-        buttonBox.getChildren().addAll(mycoplasmaButton, chromaCellButton, symbiosisButton, evolverButton, diseasedCellsButton);
+        buttonBox.getChildren().addAll(mycoplasmaButton, chromaCellButton, symbiosisButton, evolverButton, diseasedCellsButton, rippleCellsButton);
         
         simulateButton = new Button("Simulate");
         simulateButton.setDisable(true); // Cannot simulate while the field is empty
