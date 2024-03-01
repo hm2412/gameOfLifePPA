@@ -115,12 +115,12 @@ public class Evolver extends Cell {
                 setNextState(true);
                 evolve();
             }
-        } else {
+        }
+        else {
             if (neighbours.size() == 3) {
                 setNextState(true);
             }
         }
-        
     }
     
     /**

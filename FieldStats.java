@@ -60,7 +60,6 @@ public class FieldStats {
      */
     public void incrementCount(Class cellClass) {
         Counter count = counters.get(cellClass);
-
         if (count == null) {
             // We do not have a counter for this species yet. Create one.
             count = new Counter(cellClass.getName());
@@ -92,7 +91,6 @@ public class FieldStats {
                 nonZero++;
             }
         }
-
         return nonZero >= 1;
     }
 

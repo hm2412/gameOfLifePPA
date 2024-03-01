@@ -1,14 +1,11 @@
 import javafx.scene.paint.Color; 
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Random;
+import java.util.*;
 
 /**
  * A Life (Game of Life) simulator, first described by British mathematician
  * John Horton Conway in 1970.
  *
- * This updated simulator contains [...] life forms.
+ * This updated simulator contains 6 life forms.
  * Mycoplasma, ChromaCell, Evolver, DiseasedCell, Predator and Prey
  *
  * @author David J. Barnes, Michael Kölling & Jeffery Raphael
@@ -60,7 +57,6 @@ public class Simulator {
         for (Cell cell : cells) {
           cell.updateState();
         }
-
     }
 
     /**
@@ -69,26 +65,13 @@ public class Simulator {
     public void reset() {
         generation = 0;
         cells.clear();
-        populate();
-    }
-
-    /**
-     * Clear the field and randomly populate it with live/dead life forms.
-     */
-    private void populate() {
         field.clear();
-        //populateMycoplasma();
-        //populateChromaCell();
-        //populateEvolver();
-        //populateDiseasedCells();
-        //populatePredator();
-        //populatePrey();
     }
     
     /**
      * Randomly populate the field live/dead life forms for Mycoplasma
      */
-    private void populateMycoplasma() {
+    public void populateMycoplasma() {
         Random rand = Randomizer.getRandom();
         for (int row = 0; row < field.getDepth(); row++) {
             for (int col = 0; col < field.getWidth(); col++) {
@@ -110,7 +93,7 @@ public class Simulator {
      * 
      * @author Ahmet Taramis
      */
-    private void populateChromaCell() {
+    public void populateChromaCell() {
         Random rand = Randomizer.getRandom();
         for (int row = 0; row < field.getDepth(); row++) {
             for (int col = 0; col < field.getWidth(); col++) {
@@ -132,7 +115,7 @@ public class Simulator {
      * 
      * @author Haleema Mohammed
      */
-    private void populateEvolver() {
+    public void populateEvolver() {
         Random rand = Randomizer.getRandom();
         for (int row = 0; row < field.getDepth(); row++) {
             for (int col = 0; col < field.getWidth(); col++) {
@@ -154,7 +137,7 @@ public class Simulator {
      * 
      * @author Ahmet Taramis
      */
-    private void populateDiseasedCells() {
+    public void populateDiseasedCells() {
         Random rand = Randomizer.getRandom();
         for (int row = 0; row < field.getDepth(); row++) {
             for (int col = 0; col < field.getWidth(); col++) {
@@ -177,7 +160,7 @@ public class Simulator {
      * 
      * @author Haleema Mohammed
      */
-    private void populatePredator() {
+    public void populatePredator() {
         Random rand = Randomizer.getRandom();
         for (int row = 0; row < field.getDepth(); row++) {
             for (int col = 0; col < field.getWidth(); col++) {
@@ -196,7 +179,7 @@ public class Simulator {
      * 
      * @author Haleema Mohammed
      */
-    private void populatePrey() {
+    public void populatePrey() {
         Random rand = Randomizer.getRandom();
         for (int row = 0; row < field.getDepth(); row++) {
             for (int col = 0; col < field.getWidth(); col++) {

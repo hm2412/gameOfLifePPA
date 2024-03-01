@@ -12,6 +12,7 @@ import java.util.Random;
  */
 
 public class Field {
+    
     private static final Random rand = Randomizer.getRandom();
     private int depth, width;
     private Cell[][] field;
@@ -139,7 +140,6 @@ public class Field {
      * @return A list of living neighbours
      */
     public List<Cell> getLivingNeighbours(Location location) {
-
       assert location != null : "Null location passed to adjacentLocations";
       List<Cell> neighbours = new LinkedList<>();
 
@@ -164,7 +164,6 @@ public class Field {
      */
     public boolean isEmpty(Location location) {
         Cell cell = getObjectAt(location);
-        
         if ((cell == null) || (cell.isAlive() == false)) {
             return true;
         }
