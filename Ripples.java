@@ -34,9 +34,6 @@ public class Ripples extends Cell {
     public void act() {
         List<Cell> neighbours = getField().getLivingNeighbours(getLocation());
         
-        Field field = getField();
-        Location location = getLocation();
-        
         if (neighbours.size() >= 2) {
             hue += 20;
             if (hue >= 360) {
