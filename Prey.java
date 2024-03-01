@@ -44,7 +44,6 @@ public class Prey extends Cell {
             if (field.isEmpty(adjacent)) {
                 setLocation(adjacent);
                 setNextState(true);
-                System.out.println("prey moved");
             }
         }
     }

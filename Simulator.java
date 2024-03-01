@@ -72,7 +72,7 @@ public class Simulator {
     /**
      * Randomly populate the field live/dead life forms for Mycoplasma
      */
-    public void populateMycoplasma() {
+    protected void populateMycoplasma() {
         Random rand = Randomizer.getRandom();
         for (int row = 0; row < field.getDepth(); row++) {
             for (int col = 0; col < field.getWidth(); col++) {
@@ -94,7 +94,7 @@ public class Simulator {
      * 
      * @author Ahmet Taramis
      */
-    public void populateChromaCell() {
+    protected void populateChromaCell() {
         Random rand = Randomizer.getRandom();
         for (int row = 0; row < field.getDepth(); row++) {
             for (int col = 0; col < field.getWidth(); col++) {
@@ -116,7 +116,7 @@ public class Simulator {
      * 
      * @author Haleema Mohammed
      */
-    public void populateEvolver() {
+    protected void populateEvolver() {
         Random rand = Randomizer.getRandom();
         for (int row = 0; row < field.getDepth(); row++) {
             for (int col = 0; col < field.getWidth(); col++) {
@@ -138,7 +138,7 @@ public class Simulator {
      * 
      * @author Ahmet Taramis
      */
-    public void populateDiseasedCells() {
+    protected void populateDiseasedCells() {
         Random rand = Randomizer.getRandom();
         for (int row = 0; row < field.getDepth(); row++) {
             for (int col = 0; col < field.getWidth(); col++) {
@@ -161,7 +161,7 @@ public class Simulator {
      * 
      * @author Haleema Mohammed
      */
-    public void populatePredator() {
+    protected void populatePredator() {
         Random rand = Randomizer.getRandom();
         for (int row = 0; row < field.getDepth(); row++) {
             for (int col = 0; col < field.getWidth(); col++) {
@@ -180,7 +180,7 @@ public class Simulator {
      * 
      * @author Haleema Mohammed
      */
-    public void populatePrey() {
+    protected void populatePrey() {
         Random rand = Randomizer.getRandom();
         for (int row = 0; row < field.getDepth(); row++) {
             for (int col = 0; col < field.getWidth(); col++) {
@@ -196,7 +196,7 @@ public class Simulator {
     /**
      * Randomly populate the field live/dead life forms for Ripple cells
      */
-    public void populateRipples() {
+    protected void populateRipples() {
         Random rand = Randomizer.getRandom();
         for (int row = 0; row < field.getDepth(); row++) {
             for (int col = 0; col < field.getWidth(); col++) {

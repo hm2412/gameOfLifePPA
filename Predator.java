@@ -52,7 +52,6 @@ public class Predator extends Cell {
                 rand = Randomizer.getRandom();
                 if (rand.nextDouble() <= 0.3) {
                     cell.setNextState(false);
-                    System.out.println("prey killed");
                     setNextState(true);
                     return;
                 }
@@ -60,14 +59,12 @@ public class Predator extends Cell {
             if (field.isEmpty(adjacent)) {
                 setLocation(adjacent);
                 setNextState(true);
-                System.out.println("predator moved");
                 return;
             }
             rand = Randomizer.getRandom();
             // if the cell hasn't eaten or moved
             if (rand.nextDouble() <= 0.01) {
                 setNextState(false);
-                System.out.println("predator died");
                 break;
             }
         }             
